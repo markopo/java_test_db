@@ -1,0 +1,5 @@
+1: Jack London
+2: Honore de Balzac
+3: Lion Feuchtwanger
+4: Emile Zola
+5: Truman Capote
