@@ -8,7 +8,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -29,64 +31,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Connection con = null;
-     //   Statement st = null;
-        ResultSet rs = null;
-        PreparedStatement pst = null;
+           AuthorsTable at = new AuthorsTable();
+           List<AuthorsDto> authors = at.GetAuthors();
 
-        String url = "jdbc:mysql://localhost:8889/test";
-        String user = "root";
-        String password = "root";
+           for(int i=0;i< authors.size(); i++){
 
-
-        try {
-
-            con = DriverManager.getConnection(url, user, password);
-
-            pst = con.prepareStatement("SELECT * FROM Authors");
-            rs = pst.executeQuery();
-
-            String str = "";
-
-            while (rs.next()) {
-
-                Integer col1 = rs.getInt(1);
-                String col2 = rs.getString(2);
-                String text = col1 + ": " + col2 + "\r\n";
-
-                System.out.println(text);
-
-                str += text;
+               AuthorsDto author = authors.get(i);
+               System.out.println(author.getId() + ": "  + author.getName());
             }
-
-            WriteFile(str);
-
-        } catch (SQLException ex) {
-
-           System.out.println(ex.getMessage());
-
-        } finally {
-
-            try {
-
-                if (rs != null) {
-                    rs.close();
-                }
-
-                if (pst != null) {
-                    pst.close();
-                }
-
-                if (con != null) {
-                    con.close();
-                }
-
-            } catch (SQLException ex) {
-
-                System.out.println(ex.getMessage());
-
-            }
-        }
 
 
 
